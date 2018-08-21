@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         TextViewTemperature = findViewById(R.id.textView2);
         TextViewHumidity = findViewById(R.id.textView4);
 
-        constraintLayout = findViewById(R.id.constraintLayout3);
+        constraintLayout = findViewById(R.id.constraintLayout2);
         mAchartengineMethod = new AchartengineMethod(MainActivity.this);//获取画图的那个类
         mAchartengineMethod.setXYMultipleSeriesRenderer(Color.RED, Color.BLACK, Color.RED, Color.BLACK,
                 Color.argb(100, 0, 255, 0), 30, 30, new double[] {0,60,-200,200}, 1, 0, 10, 0, 60);//配置界面
