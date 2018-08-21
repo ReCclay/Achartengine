@@ -54,13 +54,15 @@ public class MainActivity extends AppCompatActivity {
     private AchartengineMethod mAchartengineMethod;//显示波形图表的那个类
     private GraphicalView mGraphicalView;//显示波形的图表
     private ConstraintLayout constraintLayout;//把图表放在这个布局(View)里面
-    long time = System.currentTimeMillis();
-    Date data = new Date(time);
-    SimpleDateFormat format=new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒 EEEE");
+    Date dt;
+    SimpleDateFormat sdf;
     double MaxValue = 0;
     double MinValue = 200;//数据的最大值和最小值--设置显示的可视范围
-
     long XCnt = 0;
+//    long time = System.currentTimeMillis();
+//    Date data = new Date(time);
+//    SimpleDateFormat format=new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒 EEEE");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -370,9 +372,12 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (XCnt%20 == 0) {
-                    format=new SimpleDateFormat("HH:mm:ss");
-                    mAchartengineMethod.getXYMultipleSeriesRenderer().addXTextLabel(XCnt,
-                            format.format(data));
+//                    format=new SimpleDateFormat("HH:mm:ss");
+////                    mAchartengineMethod.getXYMultipleSeriesRenderer().addXTextLabel(XCnt,
+////                            format.format(data));
+                    dt = new Date();
+                    sdf = new SimpleDateFormat("HH:mm:ss");
+                    mAchartengineMethod.getXYMultipleSeriesRenderer().addXTextLabel(XCnt, sdf.format(dt));
                 }
 
                 if (mAchartengineMethod.getXYMultipleSeriesRenderer().getYAxisMax() < MaxValue)
