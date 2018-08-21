@@ -14,15 +14,18 @@ import org.achartengine.renderer.XYSeriesRenderer;
 import java.util.ArrayList;
 
 public class AchartengineMethod {
-
     private Context context;
     private XYMultipleSeriesRenderer multipleSeriesRenderer;// 整体的渲染器容器
     public XYMultipleSeriesDataset multipleSeriesDataset;// 数据集容器
+
     private GraphicalView mGraphicalView;//图表的视图
     private ArrayList<XYSeriesRenderer> xySeriesRenderers =
             new ArrayList<XYSeriesRenderer>();//储存每一条线的渲染器
-    private ArrayList<XYSeries> xySeries = new ArrayList<XYSeries>();//储存每一条线的数据集
+//	private int XYSeriesRendererIndex = 0;//记录线的渲染器个数
 
+    private ArrayList<XYSeries> xySeries = new ArrayList<XYSeries>();//储存每一条线的数据集
+    //	private int XYSeriesIndex = 0;//记录线的数据集个数
+    /*方便让别的类获取这个类的context,这样就可以用获得的context来使用这个class里面的方法*/
     public AchartengineMethod(Context context)
     {
         multipleSeriesRenderer = new XYMultipleSeriesRenderer();//设置图表的各种颜色啦大小啦等等参数
@@ -42,7 +45,7 @@ public class AchartengineMethod {
     /**
      * 设置整体的渲染器,也就是设置底下的网格等一些参数
      * @param LabelsColor      所有标签的颜色
-     * @param MarginsColor	 网格框以外的颜色
+     * @param MarginsColor	   网格框以外的颜色
      * @param AxesColor        设置X轴的颜色.
      * @param BackgroundColor  网格框背景色
      * @param GridColor        网格颜色
@@ -95,6 +98,8 @@ public class AchartengineMethod {
         //multipleSeriesRenderer.setChartTitle("数据显示");//设置图表标题
     }
 
+
+
     /**
      * 配置曲线的参数
      * @param setColor     曲线的颜色
@@ -124,6 +129,19 @@ public class AchartengineMethod {
 
         xySeries.add(mSeries);
     }
+
+    /**
+     * 删除某一条线的渲染器和数据集
+     * @param index
+     */
+    public void removeXYSeriesXYSeriesRenderer(int index)
+    {
+        multipleSeriesRenderer.removeSeriesRenderer(xySeriesRenderers.get(index));
+        multipleSeriesDataset.removeSeries(index);
+        xySeriesRenderers.remove(index);
+        xySeries.remove(index);
+    }
+
 
     /**
      *
@@ -171,35 +189,23 @@ public class AchartengineMethod {
         return (xySeriesRenderers.size() > xySeries.size()) ? xySeries.size():xySeriesRenderers.size();
     }
 
-    /**
-     * 删除某一条线的渲染器和数据集
-     * @param index
-     */
-    public void removeXYSeriesXYSeriesRenderer(int index)
-    {
-        multipleSeriesRenderer.removeSeriesRenderer(xySeriesRenderers.get(index));
-        multipleSeriesDataset.removeSeries(index);
-        xySeriesRenderers.remove(index);
-        xySeries.remove(index);
-    }
-
-    /**
-	 * 删除某一条线的渲染器
-	 * @param xySeriesRenderer  线的渲染器
-	 */
-	public void removeXYSeriesRenderer(XYSeriesRenderer xySeriesRenderer)
-	{
-		xySeriesRenderers.remove(xySeriesRenderer);
-		multipleSeriesRenderer.removeSeriesRenderer(xySeriesRenderer);
-	}
-
-	/**
-	 * 删除某一条线的数据集
-	 * @param xySeries  线的数据集
-	 */
-	public void removeXYSeries(XYSeries xySeries)
-	{
-
-		multipleSeriesDataset.removeSeries(xySeries);
-	}
+//	/**
+//	 * 删除某一条线的渲染器
+//	 * @param xySeriesRenderer  线的渲染器
+//	 */
+//	public void removeXYSeriesRenderer(XYSeriesRenderer xySeriesRenderer)
+//	{
+//		xySeriesRenderers.remove(xySeriesRenderer);
+//		multipleSeriesRenderer.removeSeriesRenderer(xySeriesRenderer);
+//	}
+//
+//	/**
+//	 * 删除某一条线的数据集
+//	 * @param xySeries  线的数据集
+//	 */
+//	public void removeXYSeries(XYSeries xySeries)
+//	{
+//
+//		multipleSeriesDataset.removeSeries(xySeries);
+//	}
 }
